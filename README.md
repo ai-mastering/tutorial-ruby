@@ -11,14 +11,18 @@ This is the AI Mastering API tutorial written in ruby.
 ## Setup
 
 ```bash
+# install dependencies
 bundle install
+
+# set access token (can be get from https://aimastering.com/app/developer)
+export AIMASTERING_ACCESS_TOKEN=[AI Mastering API access token]
 ```
 
 ## Run
 
 ```bash
 # Upload test.wav, do the mastering, download and save the output as output.wav 
-bundle exec ruby mastering.rb --input test.wav --output output.wav
+bundle exec ruby main.rb --input test.wav --output output.wav
 ```
 
 ## License
