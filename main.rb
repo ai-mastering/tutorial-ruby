@@ -1,5 +1,6 @@
 require 'aimastering'
 require 'optparse'
+require 'securerandom'
 
 # Parse command line arguments
 options = {}
@@ -12,7 +13,8 @@ end
 # Setup authorization
 Aimastering.configure do |config|
   # Configure API key authorization: bearer
-  config.api_key['Authorization'] = ENV['AIMASTERING_ACCESS_TOKEN']
+  # config.api_key['Authorization'] = ENV['AIMASTERING_ACCESS_TOKEN']
+  config.api_key['Authorization'] = 'guest_' + SecureRandom.base64(16)
 end
 
 audio_api = Aimastering::AudioApi.new
@@ -25,28 +27,28 @@ begin
       file: input_file
     )
   end
-  STDERR.puts 'Input audio created'
-  STDERR.puts input_audio
+  warn 'Input audio created'
+  warn input_audio
 
   # Start the mastering
   mastering = mastering_api.create_mastering(
     input_audio.id,
     mode: 'default'
   )
-  STDERR.puts 'Mastering created'
-  STDERR.puts mastering
+  warn 'Mastering created'
+  warn mastering
 
   # Wait for the mastering completion
   while mastering.status == 'processing' || mastering.status == 'waiting'
     mastering = mastering_api.get_mastering(mastering.id)
-    STDERR.puts("waiting for the mastering completion #{(100 * mastering.progression).round}%")
+    warn("waiting for the mastering completion #{(100 * mastering.progression).round}%")
     sleep(5)
   end
 
   # Download output audio
   output_audio_data = audio_api.download_audio(mastering.output_audio_id)
   File.binwrite(options[:output], output_audio_data)
-  STDERR.puts "Output audio save to #{options[:output]}"
+  warn "Output audio save to #{options[:output]}"
 rescue Aimastering::ApiError => e
-  STDERR.puts "Api error: #{e}"
+  warn "Api error: #{e}"
 end
