@@ -1,15 +1,9 @@
-GIT
-  remote: git://github.com/ai-mastering/aimastering-ruby.git
-  revision: 19ee02c926fce7118fc0923c3a88faae7a5f992a
-  ref: 19ee02c926fce7118fc0923c3a88faae7a5f992a
-  specs:
-    aimastering (1.0.0)
-      json (~> 2.1, >= 2.1.0)
-      typhoeus (~> 1.0, >= 1.0.1)
-
 GEM
   remote: https://rubygems.org/
   specs:
+    aimastering (1.1.0)
+      json (~> 2.1, >= 2.1.0)
+      typhoeus (~> 1.0, >= 1.0.1)
     ast (2.4.2)
     ethon (0.14.0)
       ffi (>= 1.15.0)
@@ -41,7 +35,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  aimastering!
+  aimastering (~> 1.1.0)
   rubocop
 
 BUNDLED WITH

@@ -14,7 +14,7 @@ end
 Aimastering.configure do |config|
   # Configure API key authorization: bearer
   # config.api_key['Authorization'] = ENV['AIMASTERING_ACCESS_TOKEN']
-  config.api_key['Authorization'] = 'guest_' + SecureRandom.base64(16)
+  config.api_key['Authorization'] = 'guest_' + SecureRandom.base64(8)
 end
 
 audio_api = Aimastering::AudioApi.new
@@ -28,7 +28,7 @@ begin
     )
   end
   warn 'Input audio created'
-  warn input_audio
+  warn input_audio.to_s
 
   # Start the mastering
   mastering = mastering_api.create_mastering(
@@ -36,7 +36,7 @@ begin
     mode: 'default'
   )
   warn 'Mastering created'
-  warn mastering
+  warn mastering.to_s
 
   # Wait for the mastering completion
   while mastering.status == 'processing' || mastering.status == 'waiting'
