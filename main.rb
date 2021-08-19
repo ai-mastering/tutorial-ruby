@@ -14,6 +14,9 @@ end
 Aimastering.configure do |config|
   # Configure API key authorization: bearer
   # config.api_key['Authorization'] = ENV['AIMASTERING_ACCESS_TOKEN']
+
+  # API key must be 'guest_' + [arbitrary string]
+  # Unless the API key is leaked, the data will not be visible to others.
   config.api_key['Authorization'] = 'guest_' + SecureRandom.base64(8)
 end
 
